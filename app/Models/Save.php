@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Save extends Model
 {
-    //
+    protected $fillable = [
+        'userId',
+        'post_id',
+    ];
 }
