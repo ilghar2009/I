@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class AuthController extends Controller
+{
+    public function index(){
+        return view('auth');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $validator = validator()->make($request->all(),[
+            'name' => ['sometimes', 'string', 'max:10'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if($request->role === 'sign') {
+            $valid = User::where('name', $request->name)->first();
+            if(!$validator->fails() and !$valid) {
+                $user = User::create($request->all());
+                \Illuminate\Support\Facades\Auth::login($user);
+                session()->regenerate();
+                return redirect()->route('/index');
+            }else
+                return view('user.auth', ['alertS' => 'user with name or UserName exist']);
+        } else {
+            if (!$validator->fails()) {
+                $userName = $request->user_name;
+
+                $user = User::where('user_name', $userName)->first();
+                if ($user and Hash::check($request->password, $user->password)) {
+                    AuthController::login($user);
+                    session()->regenerate();
+
+                    return redirect()->route('chat.index');
+                } else
+                    return view('user.auth', ['alertL' => 'username or password is wrong']);
+            }else
+                return redirect()->route('authP')
+                    ->withErrors($validator->errors())
+                    ->withInput();
+        }
+
+        return redirect()->route('authP');
+    }
+}
