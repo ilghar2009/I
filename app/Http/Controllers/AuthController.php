@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function index(){
         return view('auth');
     }
-
+ 
     public function authenticate(Request $request)
     {
         $validator = validator()->make($request->all(),[
@@ -45,7 +45,6 @@ class AuthController extends Controller
                     ->withErrors($validator->errors())
                     ->withInput();
         }
-
         return redirect()->route('authP');
     }
 }
