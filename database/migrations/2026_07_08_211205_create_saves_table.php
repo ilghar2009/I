@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('saves', function (Blueprint $table) {
             $table->id();
             $table->string('userId');
-            $table->string('post_id');
+            $table->string('likeable_id');
+            $table->string('likeable_type');
             $table->timestamps();
         });
     }
