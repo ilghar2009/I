@@ -25,21 +25,21 @@ class AuthController extends Controller
                 $user = User::create($request->all());
                 \Illuminate\Support\Facades\Auth::login($user);
                 session()->regenerate();
-                return redirect()->route('/index');
+                return redirect()->route('home');
             }else
-                return view('user.auth', ['alertS' => 'user with name or UserName exist']);
+                return view('auth', ['alertS' => 'user with name or UserName exist']);
         } else {
             if (!$validator->fails()) {
-                $userName = $request->user_name;
+                $userName = $request->name;
 
-                $user = User::where('user_name', $userName)->first();
+                $user = User::where('name', $userName)->first();
                 if ($user and Hash::check($request->password, $user->password)) {
                     AuthController::login($user);
                     session()->regenerate();
 
                     return redirect()->route('chat.index');
                 } else
-                    return view('user.auth', ['alertL' => 'username or password is wrong']);
+                    return view('auth', ['alertL' => 'username or password is wrong']);
             }else
                 return redirect()->route('authP')
                     ->withErrors($validator->errors())

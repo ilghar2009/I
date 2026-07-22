@@ -20,14 +20,16 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    public $primaryKey = 'userId';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'userId',
         'name',
         'password',
+        'is_admin',
     ];
-    public $primaryKey = 'userId';
-    public $incrementing = false;
-    protected $keyType = 'string';
 
     protected static function boot()
     {
