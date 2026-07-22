@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('post_id');
-            $table->boolean('role');
+            $table->string('src');
             //role == 0 is normal and role == 1 is title image...
             $table->timestamps();
         });
