@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
             $valid = User::where('name', $request->name)->first();
             if(!$validator->fails() and !$valid) {
                 $user = User::create($request->all());
-                \Illuminate\Support\Facades\Auth::login($user);
+                Auth::login($user);
                 session()->regenerate();
                 return redirect()->route('home');
             }else
@@ -34,7 +35,7 @@ class AuthController extends Controller
 
                 $user = User::where('name', $userName)->first();
                 if ($user and Hash::check($request->password, $user->password)) {
-                    AuthController::login($user);
+                    Auth::login($user);
                     session()->regenerate();
 
                     return redirect()->route('chat.index');

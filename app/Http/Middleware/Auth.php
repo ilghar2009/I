@@ -20,5 +20,6 @@ class Auth
             return $next($request);
 
         return redirect()->route('authP', ['alertL' => 'Please login first']);
+//        dd(auth()->user());
     }
 }
