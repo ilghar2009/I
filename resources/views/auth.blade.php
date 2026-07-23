@@ -147,7 +147,7 @@
         <form action="{{route('auth')}}" method="post">
           @csrf
           <h2>ورود</h2>
-          <input type="text" name="user_name" id="li_username" placeholder="نام کاربری">
+          <input type="text" name="name" id="li_username" placeholder="نام کاربری">
           <input type="password" name="password" id="li_password" placeholder="رمز عبور">
           <input type="hidden" name="role" value="login">
           <button onclick="login()">ورود</button>
@@ -165,8 +165,8 @@
         <form action="{{route('auth')}}" method="post">
           @csrf
           <h2>ثبت‌نام</h2>
-          <input type="text" id="su_name" name="name" placeholder="نام کامل">
-          <input type="text" id="su_username" name="user_name" placeholder="نام کاربری">
+{{--          <input type="text" id="su_name" name="name" placeholder="نام کامل">--}}
+          <input type="text" id="su_username" name="name" placeholder="نام کاربری">
           <input type="password" id="su_password" name="password" placeholder="رمز عبور (حداقل ۸ کاراکتر)">
           <input type="hidden" name="role" value="sign">
           <button onclick="signup()">ثبت‌نام کنید</button>
